@@ -1,40 +1,71 @@
-# React Truffle Box
+# Voting DApp - Alyra | Projet 3
 
 This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
 
-## Installation
+# TESTS UNITAIRES DU CONTRAT "VOTING.SOL"
 
-First ensure you are in an empty directory.
+## Sommaire
+- Lien de la vidéo de démonstration
+- Lien de la DApp déployée sur Goërli
+- Dépendances & outils utilisés 
+- Utilisation
+- Modification du contrat Voting.sol
+- Déroulement du processus de vote
 
-Run the `unbox` command using 1 of 2 ways.
+---
 
-```sh
-# Install Truffle globally and run `truffle unbox`
-$ npm install -g truffle
-$ truffle unbox react
-```
+## Lien de la vidéo de démonstration
+- https://www.loom.com/share/590755dc1a104d15894a86ae32c60cad
 
-```sh
-# Alternatively, run `truffle unbox` via npx
-$ npx truffle unbox react
-```
 
-Start the react dev server.
+---
 
-```sh
-$ cd client
-$ npm start
-  Starting the development server...
-```
+## Lien de la DApp déployée sur Goërli
+(veillez à vous connecter sur le bon network) 
+- https://voting-d-app-git-main-gurguven.vercel.app/
 
-From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
+---
 
-## FAQ
+## Dépendances & outils utilisés
+**Afin de réaliser notre DApp, différentes ressources ont été utilisées :**
+- Truffle, un framework de déploiement de contrat solidity
+- React.js, via le boiler plate de truffle
+--- 
 
-- __How do I use this with Ganache (or any other network)?__
+## Utilisation 
+(*avec [Truffle](https://trufflesuite.com/docs/truffle/) & [Ganache](https://trufflesuite.com/docs/ganache/) et [@openzeppelin/contracts](https://www.npmjs.com/package/@openzeppelin/contracts) au préalable d'installé*)
 
-  The Truffle project is set to deploy to Ganache by default. If you'd like to change this, it's as easy as modifying the Truffle config file! Check out [our documentation on adding network configurations](https://trufflesuite.com/docs/truffle/reference/configuration/#networks). From there, you can run `truffle migrate` pointed to another network, restart the React dev server, and see the change take place.
+Dans le dossier truffle : 
+1. `ganache`
+2. `truffle migrate --network development`
+Dans le dossier client 
+3. `npm install `
+4. `npm start`
+---
 
-- __Where can I find more resources?__
+## Modification du contrat Voting.sol
 
-  This Box is a sweet combo of [Truffle](https://trufflesuite.com) and [Create React App](https://create-react-app.dev). Either one would be a great place to start!
+[Voting.sol](https://github.com/gurguven/VotingDApp/blob/main/truffle/contracts/Voting.sol)
+
+**Le contrat Voting.sol contient optimisations:**
+
+- Afin de régler une faille du DOS Gas limit, un uint sentProposal a été rajouté dans la structure Voter afin d'enregistrer, puis limiter
+le nombre de propositions attribuables par personne dans la fonction sendProposals
+- L'ajout de commentaires Natspec
+- L'impossiblité de cloturer la session de propositions si il n'y a pas plus de deux propositions
+- L'impossibilité de cloturer la session de votes si il n'y a pas plus d'1 vote enregistré 
+
+## Déroulement du processus de vote
+
+- L'owner enregistre les voters via leur addresse ethereum
+- L'owner met fin à la session d'enregistrement des voters 
+- L'owner débute la session d'enregistrement des propositions
+- Les voteurs soumettent leurs propositions (3 maximum) 
+- L'owner met fin à la session d'enregistrement des propositions 
+- L'owner débute la session d'enregistrement des votes
+- Les voteurs votent pour leur proposition préférée (1 vote maximum) 
+- L'owner met fin à la session d'enregistrement des votes 
+- L'owner débute la comptabilisation des votes : la proposition gagnante est déterminée 
+
+
+
