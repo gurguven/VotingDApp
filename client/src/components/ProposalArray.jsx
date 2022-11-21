@@ -12,8 +12,6 @@ function ProposalArray({status}) {
     const [ winningProposalDesc, setWinningProposalDesc ] = useState(null);
     const [ winningVotes, setWinningNbVotes ] = useState(0);
     const [winningPourc, setWinningPourc] = useState(); 
-    const [totaL, setTotal] = useState(0); 
-
 
     let total = 0;
     let proposalCopy = proposals 
@@ -30,8 +28,6 @@ function ProposalArray({status}) {
         setWinningPourc(pourcentage)
     }
 
-
-
 // GESTION DU WORKFLOW STATUS // 
     let registrationIsOpen = true; 
     let proposalIsOpen = false;
@@ -47,23 +43,15 @@ function ProposalArray({status}) {
             const winnerId = await contract.methods.getWinner().call(); 
             setWinningProposal(winnerId); 
             const winningDesc = await proposals[winnerId].description; 
-            // console.log(winningDesc)
             setWinningProposalDesc(winningDesc)
             const winnerVoteCount = await proposals[winnerId].voteCount
             setWinningNbVotes(winnerVoteCount)
-
-            // if (total) {
-            //     let winningPourcentage = Math.floor(winnerVoteCount / totaL  * 100) 
-            //     console.log(winningPourcentage)
-            // }
-
-
-
             document.querySelectorAll(".proposalline")[winnerId].classList.add('winner')
             getPourcentage(winnerVoteCount)
         } 
     }
 
+    // GESTION DES CAS DE STATUS
     if (status == 1) {
         registrationIsOpen = false; 
         proposalIsOpen = true; 
@@ -87,8 +75,8 @@ function ProposalArray({status}) {
     }
 
    
-
-    const test = 
+    // DIV VIDE 
+    const empty = 
     <>
         <div>
 
@@ -118,8 +106,6 @@ function ProposalArray({status}) {
             }
             setProposals(_proposals);
         }
-
-
     }
 
     useEffect( 
@@ -143,7 +129,6 @@ function ProposalArray({status}) {
         }
         let newProposal = inputProposal;
         await contract.methods.sendProposals(newProposal).send({ from: accounts[0] });
-        // inputProposal = ''; 
         updateProposals(); 
         setInputProposal("")
     }
@@ -153,7 +138,7 @@ function ProposalArray({status}) {
     };
 
     
-
+    // VOTE FOR PROPOSAL
     const voteForProposal = async () => {
         var radioButtons = document.getElementsByName('rad');
         for (var i = 0; i < radioButtons.length; i++) {
@@ -168,6 +153,7 @@ function ProposalArray({status}) {
         }
   };
 
+  // SHOW PROPOSAL COMPONENT
     const showProposal = (
         <div className="proposalarray">
             <table className="proposaltable">
@@ -235,7 +221,7 @@ function ProposalArray({status}) {
                         )
                     })
                 ) : (
-                    test
+                    empty
                 )
               }
               
@@ -297,12 +283,10 @@ function ProposalArray({status}) {
                         {<span>{total}</span>}
                     </div>
                 </div>
-               ) : test
+               ) : empty
             }
         </div>
     )
-
-
 
 
     return  (
