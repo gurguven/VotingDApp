@@ -7,8 +7,8 @@ function OwnerDashboard({status, setStatus}) {
   const [inputWallet, setInputWallet] = useState("");
   const [addresses, setAddresses] = useState([]);
 
-
-  const authorize = async e => {
+    // AUTHORIZE
+    const authorize = async e => {
         if (e.target.tagName === "INPUT") {
             return;
         }
@@ -23,15 +23,12 @@ function OwnerDashboard({status, setStatus}) {
     }  
 
     // CHANGE STATUS
-
     const changeStatus = async e => {
         await contract.methods.changeStatus().send({ from: accounts[0] });
         await getStatus(); 
     }
 
     //   GET STATUS 
-
-    // let status = ""; 
     const getStatus = async () => {
         status = await contract.methods.state().call({ from: accounts[0] });
         setStatus(status)
@@ -61,10 +58,6 @@ function OwnerDashboard({status, setStatus}) {
     }
 
     // VOTERS LIST 
-
-    let voters = []; 
-    let votersTest = ["HEY", "HEYo", "WEWE"]
-
     const getVoters = async () => {
         let options = {
             fromBlock: 0,
@@ -86,15 +79,6 @@ function OwnerDashboard({status, setStatus}) {
         setAddresses(_voters)
     }   
 
-    // voters.map( (prop) => {
-    //     return  (
-    //     <tr key={prop._id} className="proposalline">
-    //         <td className="proposal">{prop._id} : {prop.description}</td>
-    //     </tr>
-    //     )
-    // })
-
-
     useEffect( 
         () => {
             if(artifact || contract || accounts) {
@@ -111,18 +95,11 @@ function OwnerDashboard({status, setStatus}) {
         return first + "..." + last;
     }
 
-
     const voterslist = addresses.map((voter) =>
         <li className="voter">{formatETHAddress(voter)}</li>
     );
 
-
-    
-    const empty = <>
-       
-    </>
-
-
+    const empty = <></>
 
     const ownerDashboard = 
     <>
@@ -178,16 +155,6 @@ function OwnerDashboard({status, setStatus}) {
 
     </div>        
     </>;
-
-  
-
-    
-
-    // return isDeployer ? (
-    //    ownerDashboard
-    // ) : (
-    //     empty
-    // )
 
     return (
         isDeployer && !isFinished ? (
