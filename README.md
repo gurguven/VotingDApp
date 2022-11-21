@@ -1,8 +1,6 @@
 # Voting DApp - Alyra | Projet 3
 
-This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
-
-# TESTS UNITAIRES DU CONTRAT "VOTING.SOL"
+On part du contrat Voting.sol afin de réaliser une DApp de vote
 
 ## Sommaire
 - Lien de la vidéo de démonstration
