@@ -34,9 +34,12 @@ On part du contrat Voting.sol afin de réaliser une DApp de vote
 (*avec [Truffle](https://trufflesuite.com/docs/truffle/) & [Ganache](https://trufflesuite.com/docs/ganache/) et [@openzeppelin/contracts](https://www.npmjs.com/package/@openzeppelin/contracts) au préalable d'installé*)
 
 Dans le dossier truffle : 
+
 1. `ganache`
 2. `truffle migrate --network development`
-Dans le dossier client 
+
+Dans le dossier client : 
+
 3. `npm install `
 4. `npm start`
 ---
