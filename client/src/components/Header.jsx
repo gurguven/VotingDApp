@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import logo from "../assets/votinglogo.png"
 import { FaEthereum } from 'react-icons/fa';
-
-
 
 function Header({status, setStatus}) {
     const { state: { contract, accounts, artifact, owner } } = useEth();
@@ -12,6 +10,7 @@ function Header({status, setStatus}) {
     let connectedAccountSlice = ""; 
     let owned = false; 
 
+    // AFFICHAGE DE L'ADDRESSE CONNECTEE
     if (artifact || contract || accounts) {
         connectedAccount = accounts[0]; 
         const formatETHAddress = function(s, size = 4) {;
@@ -22,6 +21,7 @@ function Header({status, setStatus}) {
         connectedAccountSlice = formatETHAddress(connectedAccount)
     }
 
+    // TABLEAU DE STRINGS DES STATUS
     let displayStatus = [
         "Registering Voters", 
         "Proposals Registration Started", 
@@ -38,6 +38,7 @@ function Header({status, setStatus}) {
     
 
     useEffect(() => {
+        // AVANCE DES STATUS
         async function setup() {
               try {
 
